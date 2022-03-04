@@ -10,8 +10,22 @@ yarg.version("17.3.1")
 yarg.command({
     command: "add",
     describe: "Adds a new note",
+    builder: {
+        title: {
+            describe: "Note title",
+            demandOption: true,
+            type: "string"
+        },
+        body: {
+            describe: "Note body",
+            demandOption: true,
+            type: "string"
+        }
+    },
     handler: () => {
-        console.log("Adding your note")
+        console.log("Adding your new note:")
+        console.log("Note Title: " + yarg.argv.title)
+        console.log("Note Body: " + yarg.argv.body)
     }
 })
 
@@ -42,5 +56,4 @@ yarg.command({
     }
 })
 
-
-console.log(yarg.argv)
+yarg.parse()
