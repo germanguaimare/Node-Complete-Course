@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import myNotes from "./notes.js"
+import * as noteHandler from "./noteHandler.js"
 
 const yarg = yargs(hideBin(process.argv))
 yarg.version("17.3.1")
@@ -22,10 +22,8 @@ yarg.command({
             type: "string"
         }
     },
-    handler: () => {
-        console.log("Adding your new note:")
-        console.log("Note Title: " + yarg.argv.title)
-        console.log("Note Body: " + yarg.argv.body)
+    handler() {
+        noteHandler.addNote (yarg.argv.title, yarg.argv.body)
     }
 })
 
@@ -33,8 +31,15 @@ yarg.command({
 yarg.command({
     command: "delete",
     describe: "Deletes your selected note",
-    handler: () => {
-        console.log("Deleting your note")
+    builder: {
+        title: {
+            describe: "Title of the note you want to delete",
+            demandOption: true,
+            type: "string"
+        }
+    },
+    handler() {
+        noteHandler.deleteNote(yarg.argv.title)
     }
 })
 
@@ -42,7 +47,7 @@ yarg.command({
 yarg.command({
     command: "list",
     describe: "Lists all your notes",
-    handler: () => {
+    handler() {
         console.log("Showing all tasks")
     }
 })
@@ -51,7 +56,7 @@ yarg.command({
 yarg.command({
     command: "read",
     describe: "Reads your note",
-    handler: () => {
+    handler() {
         console.log("Reading your note")
     }
 })

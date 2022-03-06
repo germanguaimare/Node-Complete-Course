@@ -1,1 +1,0 @@
-Now I changed the file contentThis line was added through another method
