@@ -27,9 +27,9 @@ export const addNote = (title, body) => {
 
     const notes = getNotes()
 
-    const duplicate = notes.filter(note => note.title === title)
+    const duplicate = notes.find(note => note.title === title)
 
-    if (duplicate.length === 0) {
+    if (!duplicate) {
         notes.push({
             title: title,
             body: body
@@ -51,6 +51,25 @@ export const deleteNote = (title) => {
     }
     else {
         console.log(chalk.bgRed("No note found"))
+    }
+}
+
+export const listNotes = () => {
+    const notes = getNotes()
+    console.log(chalk.yellow("These are your current notes:"))
+    notes.forEach(note => console.log(chalk.underline.blue(note.title)))
+}
+
+export const readNote = (title) => {
+    const notes = getNotes()
+    const searchedNote = notes.find(note => note.title === title)
+
+    if (searchedNote) {
+        console.log("This is your requested note")
+        console.log(chalk.underline(searchedNote.title) + ": " + searchedNote.body)
+    }
+    else {
+        console.log(chalk.red("The note you're searching does not exist"))
     }
 }
 

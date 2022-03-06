@@ -48,7 +48,7 @@ yarg.command({
     command: "list",
     describe: "Lists all your notes",
     handler() {
-        console.log("Showing all tasks")
+        noteHandler.listNotes()
     }
 })
 
@@ -56,8 +56,15 @@ yarg.command({
 yarg.command({
     command: "read",
     describe: "Reads your note",
+    builder: {
+        title: {
+            describe: "Title of the note you want to read",
+            demandOption: true,
+            type: "string"
+        }
+    },
     handler() {
-        console.log("Reading your note")
+        noteHandler.readNote(yarg.argv.title)
     }
 })
 
